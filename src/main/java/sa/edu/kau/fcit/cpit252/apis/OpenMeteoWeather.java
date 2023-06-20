@@ -81,4 +81,3 @@ public class OpenMeteoWeather implements WeatherGeo {
         }
     }
 }
-
