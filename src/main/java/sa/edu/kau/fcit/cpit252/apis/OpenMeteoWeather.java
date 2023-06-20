@@ -21,6 +21,7 @@ import java.util.Iterator;
 public class OpenMeteoWeather implements WeatherGeo {
 
     private final String API_URL = "https://api.open-meteo.com/v1/forecast";
+
     // Returns 10 days weather forecasts for the given geo coordinates
     @Override
     public WeatherInfo getWeatherInfo(double latitude, double longitude) {
@@ -45,7 +46,8 @@ public class OpenMeteoWeather implements WeatherGeo {
         }
         return null;
     }
-    public static WeatherInfo parseWeatherResponse(String responseString, Class<?> elementClass){
+
+    public static WeatherInfo parseWeatherResponse(String responseString, Class<?> elementClass) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode weatherInfoNode = objectMapper.readTree(responseString);
@@ -54,23 +56,23 @@ public class OpenMeteoWeather implements WeatherGeo {
             wInfo.setLatitude(weatherInfoNode.get("latitude").doubleValue());
             wInfo.setLongitude(weatherInfoNode.get("longitude").doubleValue());
             // Get the dates for the seven days forecasts
-            Iterator<JsonNode>  datesIterator = weatherInfoNode.get("daily").get("time").elements();
+            Iterator<JsonNode> datesIterator = weatherInfoNode.get("daily").get("time").elements();
             ArrayList<LocalDate> dates = new ArrayList<>();
-            while(datesIterator.hasNext()){
+            while (datesIterator.hasNext()) {
                 dates.add(LocalDate.parse(datesIterator.next().asText()));
             }
             wInfo.setDates(dates);
             // Get max temps
-            JsonNode maxTempsNodes= weatherInfoNode.get("daily").get("temperature_2m_max");
-            int []maxTemps = new int[maxTempsNodes.size()];
-            for (int i=0; i< maxTemps.length; i++) {
+            JsonNode maxTempsNodes = weatherInfoNode.get("daily").get("temperature_2m_max");
+            int[] maxTemps = new int[maxTempsNodes.size()];
+            for (int i = 0; i < maxTemps.length; i++) {
                 maxTemps[i] = (int) Math.round(Double.valueOf(maxTempsNodes.get(i).toString()));
             }
             wInfo.setMaxTemps(maxTemps);
             // Get min temps
-            JsonNode minTempsNodes= weatherInfoNode.get("daily").get("temperature_2m_min");
-            int []minTemps = new int[minTempsNodes.size()];
-            for (int i=0; i< maxTemps.length; i++) {
+            JsonNode minTempsNodes = weatherInfoNode.get("daily").get("temperature_2m_min");
+            int[] minTemps = new int[minTempsNodes.size()];
+            for (int i = 0; i < maxTemps.length; i++) {
                 minTemps[i] = (int) Math.round(Double.valueOf(minTempsNodes.get(i).toString()));
             }
             wInfo.setMinTemps(minTemps);

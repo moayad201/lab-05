@@ -10,14 +10,9 @@ import sa.edu.kau.fcit.cpit252.weather.WeatherInfo;
 
 public class App {
     public static void main(String[] args) {
-        // Get the weather for Jeddah (21.543333, 39.172778)
-        //
         WeatherGeo weatherGeo = new OpenMeteoWeather();
         WeatherCity weatherCityAdapter = new WeatherAdapter(weatherGeo);
         WeatherInfo weatherInfo = weatherCityAdapter.getWeatherInfo("Jeddah");
         System.out.println(weatherInfo);
-
-
-
     }
 }

@@ -18,7 +18,7 @@ public class GeoLocationService {
         GEO_LOCATIONS.put("Jazan", new Location(16.889167, 42.561111));
     }
 
-    public Location search(String cityName){
+    public Location search(String cityName) {
         return GEO_LOCATIONS.get(cityName);
     }
 }

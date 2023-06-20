@@ -30,7 +30,7 @@ public class Location {
         final int prime = 31;
         double result = 1.0;
         result = prime * result + this.latitude + this.longitude;
-        return (int)result;
+        return (int) result;
     }
 
     @Override

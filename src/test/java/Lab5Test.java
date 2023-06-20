@@ -96,4 +96,3 @@ public class Lab5Test {
         assertTrue(weatherInfo.getMinTemps().length > 0);
     }
 }
-
